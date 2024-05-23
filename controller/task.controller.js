@@ -21,6 +21,16 @@ taskController.getTask = async (req, res) =>{
     }    
 }
 
+taskController.getTaskstatus = async (req, res) =>{
+    try{
+        const { status } = req.params;
+        const tasks = await Task.find({ status });
+        res.status(200).json({status:'ok',data: tasks});
+    }catch(err){
+        res.status(400).json({status:'fail',error: err})
+    }    
+}
+
 taskController.updateTask = async (req, res) => {
     try {
         const { id } = req.params;
@@ -48,6 +58,14 @@ taskController.deleteTask = async (req, res) => {
     }
 }
 
+taskController.clearAllTasks = async (req, res) => {
+    try {
+        await Task.deleteMany({});
+        res.status(200).json({ status: 'ok', message: 'All tasks cleared successfully' });
+    } catch (err) {
+        res.status(400).json({ status: 'fail', error: err });
+    }
+};
 
 
 module.exports = taskController;

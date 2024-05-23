@@ -6,9 +6,9 @@ const taskSchema = Schema({
         type:String,
         require:true
     },
-    isComplete:{
-        type:Boolean,
-        require:true
+    isComplete: {
+        type: Boolean,
+        default: false
     },
 },{timestamps:true})
 
