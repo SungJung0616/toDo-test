@@ -7,14 +7,18 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+    origin: 'http://localhost:3000',
+};
+app.use(cors(corsOptions));
+
+app.options('*', cors(corsOptions));
 app.use(bodyParser.json());
 app.use('/api',indexRouter);
 
-const MONGODB_URI_PROD = process.env.MONGODB_URI_PROD;
-const mongoURI = MONGODB_URI_PROD;
+const mongoURI = process.env.MONGODB_URI_PROD;
 
-mongoose.connect(mongoURI,{ useNewUrlParser : true})
+mongoose.connect(mongoURI,{ useNewUrlParser : true })
 .then(()=>{
     console.log("mongoose connected");
 })
