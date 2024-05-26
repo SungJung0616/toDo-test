@@ -11,12 +11,14 @@ const corsOptions = {
     origin: 'http://localhost:3000',
 };
 app.use(cors(corsOptions));
-
 app.options('*', cors(corsOptions));
+
 app.use(bodyParser.json());
 app.use('/api',indexRouter);
 
 const mongoURI = process.env.MONGODB_URI_PROD;
+const key = process.env.JWT_SECRET_KEY;
+
 
 mongoose.connect(mongoURI,{ useNewUrlParser : true })
 .then(()=>{
@@ -29,5 +31,5 @@ mongoose.connect(mongoURI,{ useNewUrlParser : true })
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+    console.log(`Server running on port ${port}`); 
 });
