@@ -34,6 +34,7 @@ userController.loginWithEmail = async (req,res) =>{
             console.log("isMatch", isMatch);
             if(isMatch){
                 const token = user.generateToken();
+                console.log("Token: ", token);
                 console.log(token);
                 return res.status(200).json({status: "success", user, token})
             }
@@ -41,7 +42,7 @@ userController.loginWithEmail = async (req,res) =>{
         throw new Error("Email or Password is not matched")
 
     }catch(error){
-        res.status(400).json({status: "fail", error})
+        res.status(400).json({status: "fail", message: error.message})
     }
 }
 
