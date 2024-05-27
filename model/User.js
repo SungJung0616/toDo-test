@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 
 require('dotenv').config();
-const jwtKey = process.env.JWT_SECRET_KEY;
+const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 const Schema = mongoose.Schema;
 const userSchema = Schema({
@@ -32,9 +32,8 @@ userSchema.methods.toJSON = function() {
 
 // User를 정의하기전에 methods를 정의해야함.. 
 userSchema.methods.generateToken = function() {
-    console.log("토큰 발행");
-    console.log("jwtKey",jwtKey);//.env 변수와 = 사이에 공백 없어야 함. 
-    const token = jwt.sign({ _id: this._id }, jwtKey, { expiresIn: '1d' }); 
+   //.env 변수와 = 사이에 공백 없어야 함. 
+    const token = jwt.sign({ _id: this._id }, JWT_SECRET_KEY, { expiresIn: '1d' }); 
 
     return token;
 }
