@@ -30,9 +30,9 @@ userSchema.methods.toJSON = function() {
     return obj;
 }
 
-// User를 정의하기전에 methods를 정의해야함.. 
+
 userSchema.methods.generateToken = function() {
-   //.env 변수와 = 사이에 공백 없어야 함. 
+   
     const token = jwt.sign({ _id: this._id }, JWT_SECRET_KEY, { expiresIn: '1d' }); 
 
     return token;

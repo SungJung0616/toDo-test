@@ -1,7 +1,7 @@
 const { TopologyDescription } = require('mongodb');
 const User = require('../model/User');
 const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 
 const userController = {}
@@ -31,11 +31,9 @@ userController.loginWithEmail = async (req,res) =>{
         const user = await User.findOne({email});
         if(user){
             const isMatch = bcrypt.compareSync(password,user.password);
-            console.log("isMatch", isMatch);
+           
             if(isMatch){
-                const token = user.generateToken();
-                console.log("Token: ", token);
-                console.log(token);
+                const token = user.generateToken();                
                 return res.status(200).json({status: "success", user, token})
             }
         }
