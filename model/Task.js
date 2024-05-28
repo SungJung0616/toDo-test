@@ -4,12 +4,17 @@ const Schema = mongoose.Schema;
 const taskSchema = Schema({
     task:{
         type:String,
-        require:true
+        required:true
     },
     isComplete: {
         type: Boolean,
         default: false
     },
+    author:{
+        type: Schema.Types.ObjectId,
+        required:true,
+        ref:"User",
+    }
 },{timestamps:true})
 
 const Task = mongoose.model("Task",taskSchema);

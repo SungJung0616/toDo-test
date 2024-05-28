@@ -37,9 +37,24 @@ userController.loginWithEmail = async (req,res) =>{
                 return res.status(200).json({status: "success", user, token})
             }
         }
-        throw new Error("Email or Password is not matched")
+        throw new Error("Email or Password does not matched")
 
     }catch(error){
+        res.status(400).json({status: "fail", message: error.message})
+    }
+}
+
+userController.getUser = async (req, res) => {
+    try {
+        console.log("getUser");
+        const { userId } = req;
+        const user = await User.findById(userId);   
+        console.log(user)
+        if(!user){
+            throw new Error("Can not find user information")
+        }
+        res.status(200).json({status: "success", user});
+    }catch(erro){
         res.status(400).json({status: "fail", message: error.message})
     }
 }
